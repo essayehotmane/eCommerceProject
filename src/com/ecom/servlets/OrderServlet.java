@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ecom.bdd.Database_connection;
-import com.ecom.dao.OrderDao;
+import com.ecom.dao.BuyDao;
 import com.ecom.dao.ProductDao;
-import com.ecom.models.Order;
+import com.ecom.models.Buy;
 import com.ecom.models.Product;
 import com.ecom.models.User;
 
@@ -61,9 +61,9 @@ public class OrderServlet extends HttpServlet {
 			response.sendRedirect("/ecommerce-jee/login");
 		} else {
 			
-			OrderDao od=new OrderDao(Database_connection.GetConnection());
+			BuyDao od=new BuyDao(Database_connection.GetConnection());
 			User user = (User)s1.getAttribute("user");
-			Order o = new Order(pQuantity, 0, user.getId(), pID);
+			Buy o = new Buy(pQuantity, pQuantity, user.getId(), pID);
 			
 			if(od.orderAdd(o) ==true ) {
 				System.out.println("order ok");

@@ -1,18 +1,18 @@
 package com.ecom.models;
 import java.util.Date;
 
-public class Order {
+public class Buy {
 	private int id;
 	private int quantity;
 	private float total;
 	private int user_id;
 	private int product_id;
 	
-	public Order() {
+	public Buy() {
 		super();
 	}
 	
-	public Order(int quantity, float total, int user_id, int product_id) {
+	public Buy(int quantity, float total, int user_id, int product_id) {
 		super();
 		this.quantity = quantity;
 		this.total = total;

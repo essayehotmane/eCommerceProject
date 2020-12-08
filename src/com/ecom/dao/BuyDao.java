@@ -4,20 +4,21 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 
-import com.ecom.models.Order;
+import com.ecom.models.Buy;
 
-public class OrderDao {
+public class BuyDao {
 	
 private Connection conn;
 	
-	public OrderDao(Connection conn) {
+	public BuyDao(Connection conn) {
 		this.conn=conn;
 	}
 
-	public boolean orderAdd(Order o) {
+	public boolean orderAdd(Buy o) {
 		boolean response=false;
 		try {
-			String query="INSERT INTO order (quantity,total,user_id,product_id) VALUES (?,?,?,?)";
+			String query="INSERT INTO buy (quantity, total, user_id, product_id) VALUES (?, ?, ?, ?);";
+			
 			PreparedStatement ps=conn.prepareStatement(query);
 			//ps.setDate(1, (Date) o.getDate());
 			ps.setInt(1, o.getQuantity());
