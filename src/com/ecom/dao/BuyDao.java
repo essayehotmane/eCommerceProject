@@ -3,8 +3,12 @@ package com.ecom.dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.ecom.models.Buy;
+import com.ecom.models.Category;
+import com.ecom.models.Product;
 
 public class BuyDao {
 	
@@ -32,5 +36,26 @@ private Connection conn;
 			e.printStackTrace();
 		}
 		return response;
+	}
+	
+	public int productQuantity(int id) {
+		Product p = new Product();
+		int q = 0;
+		
+		try {
+			String query="SELECT * FROM product WHERE id = ?;";
+			PreparedStatement ps=conn.prepareStatement(query);
+			ps.setInt(1, id);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				p=new Product(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getInt(4), rs.getString(5), rs.getInt(6));
+			}
+			q= p.getQuantity();
+			System.out.println("quantity from dao: " + q);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return q;
 	}
 }

@@ -65,9 +65,16 @@ public class OrderServlet extends HttpServlet {
 			User user = (User)s1.getAttribute("user");
 			Buy o = new Buy(pQuantity, pQuantity, user.getId(), pID);
 			
-			if(od.orderAdd(o) ==true ) {
-				System.out.println("order ok");
+			if(od.productQuantity(pID) > pQuantity ) {
+				if(od.orderAdd(o) ==true ) {
+					System.out.println("order ok");
+				}
+				System.out.println("quantity ok");
 			}
+			else {
+				System.out.println("quantity not ok!!!");
+			}
+			
 			
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/shopPages/orderProduct.jsp");
@@ -81,10 +88,6 @@ public class OrderServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-//		int pID = Integer.parseInt(request.getParameter("id"));
-//		ProductDao pd=new ProductDao(Database_connection.GetConnection());
-//		Product p = pd.getProductById(pID);
-//		System.out.println("post product: "+p.getName());
 	}
 
 }
