@@ -63,7 +63,7 @@ public class ProductDao {
 			ps.setInt(1,id); 
 			
 			ResultSet rs=ps.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
 				p=new Product(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getInt(4), rs.getString(5), rs.getInt(6));
 			}
 		}catch(Exception e) {

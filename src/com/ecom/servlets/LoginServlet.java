@@ -49,15 +49,31 @@ public class LoginServlet extends HttpServlet {
 		User u=ud.userSignIn(email, pass);
 		//System.out.println(u.toString());
 		if(u != null) {
+			if(u.getRole_id()==1) {
 			HttpSession session=request.getSession();
 			session.setAttribute("user", u);
 			response.sendRedirect("admin/adminHomePage.jsp");
-		}
+			System.out.println("admin is logged in");
+			}
+			else {
+				HttpSession session=request.getSession();
+				session.setAttribute("user", u);
+				HttpSession sessionProduct=request.getSession();
+				if(sessionProduct.getAttribute("product")!=null) {
+				response.sendRedirect(request.getContextPath()+"/detailsPage");
+				System.out.println("user is logged in with product chosen");
+				}
+				else {
+					response.sendRedirect(request.getContextPath()+"/homePage");
+					System.out.println("user is logged in");
+				}
+				}
+			}
+		
 		else {
-			request.setAttribute("error", "Email or password incorrecte!");
-			this.getServletContext().getRequestDispatcher( "/authentification/login.jsp" ).forward( request, response );
-//			PrintWriter pw=response.getWriter();
-//			pw.print("not logged");
+			HttpSession session2=request.getSession();
+			session2.setAttribute("error", "Email or password incorrecte!");
+			this.getServletContext().getRequestDispatcher( "/ecommerce-jee/login" ).forward( request, response );
 		}
 	}
 	
